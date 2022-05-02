@@ -1,25 +1,20 @@
 package app;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.core.KeywordAnalyzer;
-import org.apache.lucene.analysis.core.SimpleAnalyzer;
-import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.similarities.BM25Similarity;
 import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.store.FSDirectory;
 
 import java.nio.file.Paths;
 
 public class IndexSearcher {
-    public static ScoreDoc[] search(String query, int k){
+    public static TopDocs search(org.apache.lucene.search.IndexSearcher query, int k){
         try{
             String indexLocation = ("index"); //define where the index is stored
             String field = "contents"; //define which field will be searched
@@ -42,7 +37,7 @@ public class IndexSearcher {
             // create a query parser on the field "contents"
             QueryParser parser = new QueryParser(field, analyzer);
 
-            Query res = parser.parse(QueryParser.escape(query));
+            Query res = parser.parse(QueryParser.escape(String.valueOf(query)));
             System.out.println("Searching for: " + res.toString(field));
 
             // search the index using the indexSearcher
@@ -53,7 +48,7 @@ public class IndexSearcher {
             //Close indexReader
             indexReader.close();
 
-            return hits;
+            return results;
 
         } catch(Exception e){
             e.printStackTrace();
