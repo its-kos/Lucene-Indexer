@@ -1,6 +1,7 @@
 package app;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -29,8 +30,9 @@ public class IndexSearcher {
             indexSearcher.setSimilarity(new ClassicSimilarity());
 
             // define which analyzer to use for the normalization of user's query
-            //Analyzer analyzer = new EnglishAnalyzer();
-            Analyzer analyzer = new StandardAnalyzer();
+
+            Analyzer analyzer = new EnglishAnalyzer();
+            //Analyzer analyzer = new StandardAnalyzer();
             //Analyzer analyzer = new SimpleAnalyzer();
             //Analyzer analyzer = new KeywordAnalyzer();
 

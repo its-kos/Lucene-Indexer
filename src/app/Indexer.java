@@ -40,8 +40,8 @@ public class Indexer {
             Directory dir = FSDirectory.open(Paths.get(indexLocation));
 
             // Define which analyzer to use for the normalization of documents
-            //Analyzer analyzer = new EnglishAnalyzer();
-            Analyzer analyzer = new StandardAnalyzer();
+            Analyzer analyzer = new EnglishAnalyzer();
+            //Analyzer analyzer = new StandardAnalyzer();
             //Analyzer analyzer = new SimpleAnalyzer();
             //Analyzer analyzer = new KeywordAnalyzer();
 

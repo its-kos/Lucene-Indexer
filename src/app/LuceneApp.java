@@ -42,13 +42,14 @@ public class LuceneApp {
                         String text = query.trim().split("\n")[1].trim();
                         TopDocs results = search(indexSearcher, k);
                         ScoreDoc[] hits = results.scoreDocs;
-                        System.out.println(hits.length);
+                        //System.out.println(hits.length);
 
                         for (ScoreDoc hit: hits) {
                             Document hitdoc = indexSearcher.doc(hit.doc);
                             //System.out.println(hitdoc.toString());
                             writer.write("Q" + String.format("%02d", Integer.parseInt(queryId.substring(1))) + " Q0 " + hitdoc.get("docid") + " 0 " + hit.score + " myRun" + "\n");
                         }
+
                     }
                 }
             }
