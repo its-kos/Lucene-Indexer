@@ -46,7 +46,8 @@ public class IndexSearcher {
             TopDocs results = indexSearcher.search(res, k);
 
             ScoreDoc[] hits = results.scoreDocs;
-            System.out.println("Test: " + hits[0]);
+            for (int i=0;i< hits.length;i++)
+                System.out.println("Test: " + hits[i]);
             //Close indexReader
             indexReader.close();
 
