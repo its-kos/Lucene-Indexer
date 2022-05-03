@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.List;
 
 public class Indexer {
-    private static int counter = 1;
     public static void index() throws Exception{
 
         // Define were to find the texts
@@ -43,7 +42,6 @@ public class Indexer {
             Analyzer analyzer = new EnglishAnalyzer();
             //Analyzer analyzer = new StandardAnalyzer();
             //Analyzer analyzer = new SimpleAnalyzer();
-            //Analyzer analyzer = new KeywordAnalyzer();
 
             // Define retrieval model
             //Similarity similarity = new BM25Similarity();
