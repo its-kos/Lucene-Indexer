@@ -44,7 +44,6 @@ public class IndexSearcher {
             // search the index using the indexSearcher
             TopDocs results = indexSearcher.search(res, k);
 
-            ScoreDoc[] hits = results.scoreDocs;
             //Close indexReader
             indexReader.close();
 
