@@ -27,13 +27,9 @@ public class IndexSearcher {
             IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get(indexLocation)));
             org.apache.lucene.search.IndexSearcher indexSearcher = new org.apache.lucene.search.IndexSearcher(indexReader);
 
-            //indexSearcher.setSimilarity(new BM25Similarity());
-            indexSearcher.setSimilarity(new ClassicSimilarity());
+            Analyzer analyzer = new MyAnalyzer();
 
-            // define which analyzer to use for the normalization of user's query
-            Analyzer analyzer = new EnglishAnalyzer();
-            //Analyzer analyzer = new StandardAnalyzer();
-            //Analyzer analyzer = new SimpleAnalyzer();
+            indexSearcher.setSimilarity(new ClassicSimilarity());
 
             // create a query parser on the field "contents"
             QueryParser parser = new QueryParser(field, analyzer);

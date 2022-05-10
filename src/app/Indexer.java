@@ -38,14 +38,12 @@ public class Indexer {
             System.out.println("Indexing to directory: '" + indexLocation);
             Directory dir = FSDirectory.open(Paths.get(indexLocation));
 
-            // Define which analyzer to use for the normalization of documents
-            Analyzer analyzer = new EnglishAnalyzer();
-            //Analyzer analyzer = new StandardAnalyzer();
-            //Analyzer analyzer = new SimpleAnalyzer();
+            Analyzer analyzer = new MyAnalyzer();
 
             // Define retrieval model
             //Similarity similarity = new BM25Similarity();
             Similarity similarity = new ClassicSimilarity();
+
 
             // Configure IndexWriter
             IndexWriterConfig iwc = new IndexWriterConfig(analyzer);

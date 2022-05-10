@@ -3,7 +3,7 @@ package app;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.similarities.ClassicSimilarity;
+
 import utils.IO;
 
 import java.io.BufferedWriter;
