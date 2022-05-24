@@ -87,9 +87,13 @@ public class Indexer {
             if (indexWriter.getConfig().getOpenMode() == OpenMode.CREATE) {
                 // New index, so we just add the document (no old document can be there):
                 indexWriter.addDocument(doc);
-            } 
+            }
         } catch(Exception e){
             e.printStackTrace();
         }
+
     }
+
+
+
 }
