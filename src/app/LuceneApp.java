@@ -36,7 +36,7 @@ public class LuceneApp {
                         TopDocs results = search(text, k);
                         ScoreDoc[] hits = results.scoreDocs;
 
-                        System.out.println(hits.length); //0
+//                        System.out.println(hits.length); //0
                         for (int i = 0; i < hits.length; i++) {
 
                             Document hitdoc = getId(hits[i].doc);
@@ -47,6 +47,7 @@ public class LuceneApp {
                     }
                 }
             }
+            System.out.println("Written in txt files");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
