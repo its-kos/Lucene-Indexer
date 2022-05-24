@@ -8,10 +8,7 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queries.mlt.MoreLikeThis;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.similarities.ClassicSimilarity;
-import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.FSDirectory;
 
 
@@ -19,8 +16,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 public class IndexSearcher {
     private static final String indexLocation = ("index");
@@ -28,19 +23,15 @@ public class IndexSearcher {
 
 
 
-    public static TopDocs search(String query, int k){
-        try{
-
+    public static <SearchHit> TopDocs search(String query, int k){
+        try {
             IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get(indexLocation)));
             org.apache.lucene.search.IndexSearcher indexSearcher = new org.apache.lucene.search.IndexSearcher(indexReader);
             Analyzer analyzer = new StandardAnalyzer();
-            indexSearcher.setSimilarity(new ClassicSimilarity());
-//            indexSearcher.setSimilarity(new ClassicSimilarity());
-            // create a query parser on the field "contents"
-            QueryParser parser = new QueryParser(field, analyzer);
 
-            Query res = parser.parse(QueryParser.escape(String.valueOf(query)));
-            System.out.println("Searching for: " + res.toString(field));
+//            QueryParser parser = new QueryParser(field, analyzer);
+//            Query res = parser.parse(QueryParser.escape(String.valueOf(query)));
+//            System.out.println("Searching for: " + res.toString(field));
 
             MoreLikeThis mlt = new MoreLikeThis(indexReader);
             mlt.setMinTermFreq(0);
@@ -48,8 +39,8 @@ public class IndexSearcher {
             mlt.setFieldNames(new String[]{"docid", "content"});
             mlt.setAnalyzer(analyzer);
 
-            Reader sReader = new StringReader(query);
-            Query res2 = mlt.like(String.valueOf(sReader));
+//            Reader sReader = new StringReader(query);
+            Query res2 = mlt.like(field,new StringReader(query));
 
             TopDocs results = indexSearcher.search(res2, k);
 

@@ -12,6 +12,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Map;
 
 import static app.IndexSearcher.getId;
 import static app.IndexSearcher.search;
@@ -34,13 +35,15 @@ public class LuceneApp {
                         String text = query.trim().split("\n")[1].trim();
                         TopDocs results = search(text, k);
                         ScoreDoc[] hits = results.scoreDocs;
-                        System.out.println(hits.length); //vgazei 0
+
+                        System.out.println(hits.length); //0
                         for (int i = 0; i < hits.length; i++) {
 
                             Document hitdoc = getId(hits[i].doc);
 
                             writer.write("Q" + String.format("%02d", Integer.parseInt(queryId.substring(1))) + " Q0 " + hitdoc.get("docid") + " 0 " + hits[i].score + " myRun" + "\n");
                         }
+
                     }
                 }
             }
