@@ -81,7 +81,7 @@ public class Indexer {
             // create the fields of the document and add them to the document
             StoredField id = new StoredField("docid", mydoc.getDocid());
             doc.add(id);
-            TextField content = new TextField("contents", mydoc.getContent(), Field.Store.NO);
+            TextField content = new TextField("contents", mydoc.getContent(), Field.Store.YES);
             doc.add(content);
             
             if (indexWriter.getConfig().getOpenMode() == OpenMode.CREATE) {
