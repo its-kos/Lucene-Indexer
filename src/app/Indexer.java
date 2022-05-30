@@ -38,12 +38,11 @@ public class Indexer {
             System.out.println("Indexing to directory: '" + indexLocation);
             Directory dir = FSDirectory.open(Paths.get(indexLocation));
 
-            Analyzer analyzer = new StandardAnalyzer();
+            Analyzer analyzer = new MyAnalyzer();
 
             // Define retrieval model
             //Similarity similarity = new BM25Similarity();
             Similarity similarity = new ClassicSimilarity();
-
 
             // Configure IndexWriter
             IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
@@ -74,14 +73,13 @@ public class Indexer {
 
     private static void indexDoc(IndexWriter indexWriter, MyDoc mydoc){
         try {
-            
             // make a new, empty document
             Document doc = new Document();
             
             // create the fields of the document and add them to the document
             StoredField id = new StoredField("docid", mydoc.getDocid());
             doc.add(id);
-            TextField content = new TextField("contents", mydoc.getContent(), Field.Store.YES);
+            TextField content = new TextField("contents", mydoc.getContent(), Field.Store.NO);
             doc.add(content);
             
             if (indexWriter.getConfig().getOpenMode() == OpenMode.CREATE) {
@@ -91,9 +89,5 @@ public class Indexer {
         } catch(Exception e){
             e.printStackTrace();
         }
-
     }
-
-
-
 }
