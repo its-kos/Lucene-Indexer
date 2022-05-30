@@ -1,6 +1,7 @@
 package app;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -22,8 +23,6 @@ import java.nio.file.Paths;
 public class IndexSearcher {
     private static final String indexLocation = ("index");
     private static final String field = "contents";
-    private static Document document;
-
     public static void search(String query, int k, String queryId) {
 
         String format = String.format("%02d", Integer.parseInt(queryId.substring(1)));
@@ -32,7 +31,7 @@ public class IndexSearcher {
             IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get(indexLocation)));
             org.apache.lucene.search.IndexSearcher indexSearcher = new org.apache.lucene.search.IndexSearcher(indexReader);
 
-            Analyzer analyzer = new MyAnalyzer();
+            Analyzer analyzer = new EnglishAnalyzer();
             MoreLikeThis mlt = new MoreLikeThis(indexReader);
             mlt.setAnalyzer(analyzer);
 
@@ -44,27 +43,28 @@ public class IndexSearcher {
 
             TopDocs results = indexSearcher.search(res, k);
 
-            try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(".\\IR2022\\results\\results-k" + k + ".txt"), StandardCharsets.UTF_8))) {
-                for (int i = 0; i < results.scoreDocs.length; i++) {
-                    document = indexReader.document(results.scoreDocs[i].doc);
-                    ScoreDoc scoreDoc = results.scoreDocs[i];
+            FileWriter fileWriter = new FileWriter(".\\IR2022\\results\\results-k" + k + ".txt", true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-                    //System.out.println(format);
+            for (int i = 0; i < results.scoreDocs.length; i++) {
 
-                    // Write the results of the initial query
-                    writer.write("Q" + format + " Q0 " + document.get("docid") + " 0 " + scoreDoc.score + " myRun" + "\n");
+                Document document = indexReader.document(results.scoreDocs[i].doc);
+                ScoreDoc scoreDoc = results.scoreDocs[i];
 
-                    // Passing the results to MLT to get 5 more recommended documents
-                    Query simQuery = mlt.like(field, new StringReader(query));
-                    TopDocs related = indexSearcher.search(simQuery, 5);
-
-                    for (ScoreDoc rd : related.scoreDocs){
-                        document = indexReader.document(rd.doc);
-                        // Write the results of the documents returned from MLT
-                        writer.write("Q" + format + " Q0 " + document.get("docid") + " 0 " + rd.score + " myRun" + "\n");
-                    }
-                }
+                // Write the results of the initial query
+                bufferedWriter.write("Q" + format + " Q0 " + document.get("docid") + " 0 " + scoreDoc.score + " myRun" + "\n");
             }
+
+            // Passing the results to MLT to get 5 more recommended documents
+            Query simQuery = mlt.like(field, new StringReader(query));
+            TopDocs related = indexSearcher.search(simQuery, 5);
+            for (ScoreDoc rd : related.scoreDocs){
+                Document document = indexReader.document(rd.doc);
+                // Write the results of the documents returned from MLT
+                bufferedWriter.write("Q" + format + " Q0 " + document.get("docid") + " 0 " + rd.score + " myRun" + "\n");
+            }
+
+            bufferedWriter.close();
             indexReader.close();
         } catch (Exception e) {
             e.printStackTrace();

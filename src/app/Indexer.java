@@ -38,7 +38,7 @@ public class Indexer {
             System.out.println("Indexing to directory: '" + indexLocation);
             Directory dir = FSDirectory.open(Paths.get(indexLocation));
 
-            Analyzer analyzer = new MyAnalyzer();
+            Analyzer analyzer = new EnglishAnalyzer();
 
             // Define retrieval model
             //Similarity similarity = new BM25Similarity();
