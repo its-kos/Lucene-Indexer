@@ -34,8 +34,10 @@ public class IndexSearcher {
 
             Analyzer analyzer = new EnglishAnalyzer();
             MoreLikeThis mlt = new MoreLikeThis(indexReader);
-            mlt.setMinTermFreq(0);
-            mlt.setMinDocFreq(0);
+//            Sets the frequency below which terms will be ignored in the source doc.
+            mlt.setMinTermFreq(1);
+//            Sets the frequency at which words will be ignored which do not occur in at least this many docs.
+            mlt.setMinDocFreq(1);
             mlt.setFieldNames(new String[]{"docid", "contents"});
             mlt.setAnalyzer(analyzer);
 
@@ -51,7 +53,6 @@ public class IndexSearcher {
             FileWriter fileWriter = new FileWriter(".\\IR2022\\results\\results-k" + k + ".txt", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             ArrayList includedDocs = new ArrayList();
-
 
 
             for (int i = 1; i < results.scoreDocs.length; i++) {
