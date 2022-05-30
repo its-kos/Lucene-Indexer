@@ -19,6 +19,7 @@ import org.apache.lucene.store.FSDirectory;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class IndexSearcher {
     private static final String indexLocation = ("index");
@@ -45,11 +46,13 @@ public class IndexSearcher {
 
             FileWriter fileWriter = new FileWriter(".\\IR2022\\results\\results-k" + k + ".txt", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            ArrayList includedDocs = new ArrayList();
 
-            for (int i = 0; i < results.scoreDocs.length; i++) {
+            for (int i = 1; i < results.scoreDocs.length; i++) {
 
                 Document document = indexReader.document(results.scoreDocs[i].doc);
                 ScoreDoc scoreDoc = results.scoreDocs[i];
+                includedDocs.add(Integer.parseInt(document.get("docid")));
 
                 // Write the results of the initial query
                 bufferedWriter.write("Q" + format + " Q0 " + document.get("docid") + " 0 " + scoreDoc.score + " myRun" + "\n");
@@ -57,11 +60,15 @@ public class IndexSearcher {
 
             // Passing the results to MLT to get 5 more recommended documents
             Query simQuery = mlt.like(field, new StringReader(query));
-            TopDocs related = indexSearcher.search(simQuery, 5);
+            TopDocs related = indexSearcher.search(simQuery, k+5);
             for (ScoreDoc rd : related.scoreDocs){
                 Document document = indexReader.document(rd.doc);
-                // Write the results of the documents returned from MLT
-                bufferedWriter.write("Q" + format + " Q0 " + document.get("docid") + " 0 " + rd.score + " myRun" + "\n");
+                if (!includedDocs.contains(Integer.parseInt(document.get("docid")))){
+                    // Write the results of the documents returned from MLT
+                    bufferedWriter.write("Q" + format + " Q0 " + document.get("docid") + " 0 " + rd.score + " myRun" + "\n");
+                }
+
+
             }
 
             bufferedWriter.close();

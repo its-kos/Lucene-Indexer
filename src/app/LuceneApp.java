@@ -12,7 +12,7 @@ public class LuceneApp {
             f.delete();
             f = new File("IR2022/Results/results-k30.txt");
             f.delete();
-            f = new File("IR2022/Results/resultsk-50.txt");
+            f = new File("IR2022/Results/results-k50.txt");
             f.delete();
 
             Indexer.index();
