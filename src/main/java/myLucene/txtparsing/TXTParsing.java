@@ -1,4 +1,4 @@
-package myLucene.txtparsing;
+package main.java.myLucene.txtparsing;
 
 import myLucene.utils.IO;
 import java.util.ArrayList;

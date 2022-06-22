@@ -1,7 +1,6 @@
 package myLucene.app;
 
 import myLucene.utils.IO;
-
 import java.io.File;
 import java.util.Arrays;
 

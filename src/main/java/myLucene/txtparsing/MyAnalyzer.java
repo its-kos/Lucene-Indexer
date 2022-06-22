@@ -1,4 +1,4 @@
-package myLucene.app;
+package main.java.myLucene.txtparsing;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenFilter;
