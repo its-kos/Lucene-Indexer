@@ -1,4 +1,4 @@
-package myLucene.app;
+package main.java.myLucene.app;
 
 // tested for lucene 7.7.3 and jdk18
 
@@ -15,8 +15,8 @@ import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import myLucene.txtparsing.MyDoc;
-import myLucene.txtparsing.TXTParsing;
+import main.java.myLucene.txtparsing.MyDoc;
+import main.java.myLucene.txtparsing.TXTParsing;
 
 import java.io.IOException;
 import java.nio.file.Paths;

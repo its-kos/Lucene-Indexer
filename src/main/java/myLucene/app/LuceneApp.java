@@ -1,4 +1,4 @@
-package myLucene.app;
+package main.java.myLucene.app;
 
 import myLucene.utils.IO;
 import java.io.File;

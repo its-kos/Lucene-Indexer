@@ -1,4 +1,4 @@
-package myLucene.app;
+package main.java.myLucene.app;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
