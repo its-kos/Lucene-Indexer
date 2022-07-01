@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package myLucene.app;
+=======
+package main.java.myLucene.app;
+>>>>>>> f9ca8a0438de0104c61a6fd513191e7b316121f3
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;

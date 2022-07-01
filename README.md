@@ -4,3 +4,5 @@ Lucene Search University Project
 Baseline Document Retrieval using EnglishAnalyzer and ClassicSimilarity. 
 # Phase 2
 Document Retrieval using MoreLikeThis 
+# Phase 3
+Using DL4J

@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 package myLucene.app;
 
 import myLucene.utils.IO;
+=======
+package main.java.myLucene.app;
+>>>>>>> f9ca8a0438de0104c61a6fd513191e7b316121f3
 
+import myLucene.utils.IO;
 import java.io.File;
 import java.util.Arrays;
 
