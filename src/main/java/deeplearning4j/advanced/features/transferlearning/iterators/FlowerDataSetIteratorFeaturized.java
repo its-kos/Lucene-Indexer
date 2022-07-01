@@ -17,9 +17,9 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.features.transferlearning.iterators;
+package deeplearning4j.advanced.features.transferlearning.iterators;
 
-import org.deeplearning4j.examples.advanced.features.transferlearning.editlastlayer.presave.FeaturizedPreSave;
+import deeplearning4j.advanced.features.transferlearning.editlastlayer.presave.FeaturizedPreSave;
 import org.nd4j.linalg.dataset.AsyncDataSetIterator;
 import org.nd4j.linalg.dataset.ExistingMiniBatchDataSetIterator;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;

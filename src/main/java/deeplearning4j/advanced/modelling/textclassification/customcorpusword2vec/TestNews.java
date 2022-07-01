@@ -17,9 +17,9 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.modelling.textclassification.customcorpusword2vec;
+package deeplearning4j.advanced.modelling.textclassification.customcorpusword2vec;
 
-import org.deeplearning4j.examples.utils.DownloaderUtility;
+import deeplearning4j.utils.DownloaderUtility;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;

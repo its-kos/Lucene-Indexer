@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.utils;
+package deeplearning4j.utils;
 
 import org.apache.commons.io.FilenameUtils;
 import org.nd4j.common.resources.Downloader;
@@ -116,11 +116,11 @@ public enum DownloaderUtility {
             System.out.println("Downloading data (" + DATA_SIZE + ") and extracting to \n\t" + dataPathLocal);
             System.out.println("_______________________________________________________________________");
             Downloader.downloadAndExtract("files",
-                new URL(dataURL),
-                new File(downloadPath),
-                new File(extractDir),
-                MD5,
-                downloadRetries);
+                    new URL(dataURL),
+                    new File(downloadPath),
+                    new File(extractDir),
+                    MD5,
+                    downloadRetries);
         } else {
             System.out.println("_______________________________________________________________________");
             System.out.println("Example data present in \n\t" + dataPathLocal);

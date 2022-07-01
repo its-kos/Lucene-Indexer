@@ -17,10 +17,10 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.modelling.styletransfer;
+package deeplearning4j.advanced.modelling.styletransfer;
 
 import org.datavec.image.loader.NativeImageLoader;
-import org.deeplearning4j.examples.utils.DownloaderUtility;
+import deeplearning4j.utils.DownloaderUtility;
 import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.workspace.LayerWorkspaceMgr;

@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.quickstart.modeling.feedforward.regression;
+package deeplearning4j.quickstart.modeling.feedforward.regression;
 
 import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;

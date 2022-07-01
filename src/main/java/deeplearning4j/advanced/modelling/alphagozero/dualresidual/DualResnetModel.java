@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.modelling.alphagozero.dualresidual;
+package deeplearning4j.advanced.modelling.alphagozero.dualresidual;
 
 import org.deeplearning4j.nn.graph.ComputationGraph;
 

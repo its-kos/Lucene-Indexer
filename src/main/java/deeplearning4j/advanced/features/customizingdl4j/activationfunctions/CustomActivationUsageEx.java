@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.features.customizingdl4j.activationfunctions;
+package deeplearning4j.advanced.features.customizingdl4j.activationfunctions;
 
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
@@ -32,7 +32,7 @@ import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.util.Random;
 
-import static org.deeplearning4j.examples.quickstart.modeling.feedforward.regression.SumModel.getTrainingData;
+import static deeplearning4j.quickstart.modeling.feedforward.regression.SumModel.getTrainingData;
 
 /**
  * This is an example that illustrates how to instantiate and use a custom activation function.

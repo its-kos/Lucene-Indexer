@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 package myLucene.txtparsing;
-=======
-package main.java.myLucene.txtparsing;
->>>>>>> f9ca8a0438de0104c61a6fd513191e7b316121f3
 
 public class MyDoc {
 

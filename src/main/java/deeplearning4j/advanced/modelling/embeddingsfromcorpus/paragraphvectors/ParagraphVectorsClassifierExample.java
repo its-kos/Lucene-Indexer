@@ -17,14 +17,14 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.modelling.embeddingsfromcorpus.paragraphvectors;
+package deeplearning4j.advanced.modelling.embeddingsfromcorpus.paragraphvectors;
 
 import org.deeplearning4j.examples.advanced.modelling.embeddingsfromcorpus.paragraphvectors.tools.LabelSeeker;
 import org.deeplearning4j.examples.advanced.modelling.embeddingsfromcorpus.paragraphvectors.tools.MeansBuilder;
 import org.deeplearning4j.models.embeddings.inmemory.InMemoryLookupTable;
 import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
 import org.deeplearning4j.models.word2vec.VocabWord;
-import org.deeplearning4j.examples.utils.DownloaderUtility;
+import deeplearning4j.utils.DownloaderUtility;
 import org.deeplearning4j.text.documentiterator.FileLabelAwareIterator;
 import org.deeplearning4j.text.documentiterator.LabelAwareIterator;
 import org.deeplearning4j.text.documentiterator.LabelledDocument;

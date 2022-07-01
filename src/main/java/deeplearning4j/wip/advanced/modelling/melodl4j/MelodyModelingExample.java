@@ -17,10 +17,10 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.wip.advanced.modelling.melodl4j;
+package deeplearning4j.wip.advanced.modelling.melodl4j;
 
 import org.apache.commons.io.FileUtils;
-import org.deeplearning4j.examples.advanced.modelling.charmodelling.utils.CharacterIterator;
+import deeplearning4j.advanced.modelling.charmodelling.utils.CharacterIterator;
 import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.conf.BackpropType;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
@@ -107,21 +107,21 @@ public class MelodyModelingExample {
 
         //Set up network configuration:
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
-            .updater(new RmsProp(0.1))
-            .seed(12345)
-            .l2(0.001)
-            .weightInit(WeightInit.XAVIER)
-            .list()
-            .layer(0, new LSTM.Builder().nIn(iter.inputColumns()).nOut(lstmLayerSize)
-                .activation(Activation.TANH).build())
-            .layer(1, new LSTM.Builder().nIn(lstmLayerSize).nOut(lstmLayerSize)
-                .activation(Activation.TANH).build())
+                .updater(new RmsProp(0.1))
+                .seed(12345)
+                .l2(0.001)
+                .weightInit(WeightInit.XAVIER)
+                .list()
+                .layer(0, new LSTM.Builder().nIn(iter.inputColumns()).nOut(lstmLayerSize)
+                        .activation(Activation.TANH).build())
+                .layer(1, new LSTM.Builder().nIn(lstmLayerSize).nOut(lstmLayerSize)
+                        .activation(Activation.TANH).build())
 //            .layer(2, new LSTM.Builder().nIn(lstmLayerSize).nOut(lstmLayerSize)
 //                .activation(Activation.TANH).build())
-            .layer(2, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
-                .nIn(lstmLayerSize).nOut(nOut).build())
-            .backpropType(BackpropType.TruncatedBPTT).tBPTTForwardLength(tbpttLength).tBPTTBackwardLength(tbpttLength)
-            .build();
+                .layer(2, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
+                        .nIn(lstmLayerSize).nOut(nOut).build())
+                .backpropType(BackpropType.TruncatedBPTT).tBPTTForwardLength(tbpttLength).tBPTTBackwardLength(tbpttLength)
+                .build();
 
 
         learn(miniBatchSize, exampleLength, numEpochs, generateSamplesEveryNMinibatches, nSamplesToGenerate, nCharactersToSample, generationInitialization, rng, startTime, iter, conf);
@@ -229,7 +229,7 @@ public class MelodyModelingExample {
         makeSureFileIsInTmpDir(inputSymbolicMelodiesFilename);
         final char[] validCharacters = MelodyStrings.allValidCharacters.toCharArray(); //Which characters are allowed? Others will be removed
         return new CharacterIterator(symbolicMelodiesInputFilePath, Charset.forName("UTF-8"),
-            miniBatchSize, sequenceLength, validCharacters, new Random(12345), MelodyStrings.COMMENT_STRING);
+                miniBatchSize, sequenceLength, validCharacters, new Random(12345), MelodyStrings.COMMENT_STRING);
     }
 
     /**

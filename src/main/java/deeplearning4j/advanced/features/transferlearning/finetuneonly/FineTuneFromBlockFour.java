@@ -17,9 +17,9 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.features.transferlearning.finetuneonly;
+package deeplearning4j.advanced.features.transferlearning.finetuneonly;
 
-import org.deeplearning4j.examples.advanced.features.transferlearning.iterators.FlowerDataSetIterator;
+import deeplearning4j.advanced.features.transferlearning.iterators.FlowerDataSetIterator;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.transferlearning.FineTuneConfiguration;
 import org.deeplearning4j.nn.transferlearning.TransferLearning;

@@ -17,9 +17,9 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.features.transferlearning.editfrombottleneck;
+package deeplearning4j.advanced.features.transferlearning.editfrombottleneck;
 
-import org.deeplearning4j.examples.advanced.features.transferlearning.iterators.FlowerDataSetIterator;
+import deeplearning4j.advanced.features.transferlearning.iterators.FlowerDataSetIterator;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.graph.ComputationGraph;

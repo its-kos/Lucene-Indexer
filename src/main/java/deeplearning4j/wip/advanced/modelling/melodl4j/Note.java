@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.wip.advanced.modelling.melodl4j;
+package deeplearning4j.wip.advanced.modelling.melodl4j;
 
 import javax.sound.midi.*;
 
@@ -41,8 +41,8 @@ public class Note implements Comparable<Note> {
     @Override
     public String toString() {
         return "Pitch " + pitch + " starting at " + startTick + " ending at " + endTick + " on channel "
-	    + channel + " with instrument " + instrument + " (" + PlayMelodyStrings.programs[instrument] + ")"
-	    + " and volume " + velocity;
+                + channel + " with instrument " + instrument + " (" + PlayMelodyStrings.programs[instrument] + ")"
+                + " and volume " + velocity;
     }
     public long getEndTick() {
         return endTick;
@@ -95,18 +95,18 @@ public class Note implements Comparable<Note> {
     }
     @Override
     public boolean equals(Object obj) {
-    	if (obj == null) {
-    		return false;
-    	} else if (! (obj instanceof Note)) {
-    		return false;
-    	}
+        if (obj == null) {
+            return false;
+        } else if (! (obj instanceof Note)) {
+            return false;
+        }
         Note other=(Note)obj;
         return startTick==other.startTick  && pitch==other.pitch && Objects.equal(channel, other.channel);
     }
 
     @Override
     public int hashCode() {
-    	return Objects.hashCode(startTick, pitch, channel);
+        return Objects.hashCode(startTick, pitch, channel);
     }
 
     public void addMidiEvents(Track track) throws InvalidMidiDataException {

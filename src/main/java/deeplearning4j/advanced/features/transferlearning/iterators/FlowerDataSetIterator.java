@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.features.transferlearning.iterators;
+package deeplearning4j.advanced.features.transferlearning.iterators;
 
 import org.apache.commons.io.FileUtils;
 import org.datavec.api.io.filters.BalancedPathFilter;
@@ -100,17 +100,17 @@ public class FlowerDataSetIterator {
     }
 
     private static void downloadAndUntar() throws IOException {
-         File rootFile = new File(DATA_DIR);
-         if (!rootFile.exists()) {
-             rootFile.mkdir();
-         }
-         File tarFile = new File(DATA_DIR, "flower_photos.tgz");
-         if (!tarFile.isFile()) {
-             log.info("Downloading the flower dataset from "+DATA_URL+ "...");
-             FileUtils.copyURLToFile(
-                     new URL(DATA_URL),
-                     tarFile);
-         }
-         ArchiveUtils.unzipFileTo(tarFile.getAbsolutePath(), rootFile.getAbsolutePath());
+        File rootFile = new File(DATA_DIR);
+        if (!rootFile.exists()) {
+            rootFile.mkdir();
+        }
+        File tarFile = new File(DATA_DIR, "flower_photos.tgz");
+        if (!tarFile.isFile()) {
+            log.info("Downloading the flower dataset from "+DATA_URL+ "...");
+            FileUtils.copyURLToFile(
+                    new URL(DATA_URL),
+                    tarFile);
+        }
+        ArchiveUtils.unzipFileTo(tarFile.getAbsolutePath(), rootFile.getAbsolutePath());
     }
 }

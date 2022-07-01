@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="nd4j-common-1.0.0-M2-javadoc">
+    <CLASSES />
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../nd4j-common-1.0.0-M2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

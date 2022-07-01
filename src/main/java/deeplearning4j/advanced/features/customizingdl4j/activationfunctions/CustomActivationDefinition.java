@@ -17,7 +17,8 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.features.customizingdl4j.activationfunctions;
+package deeplearning4j.advanced.features.customizingdl4j.activationfunctions;
+
 
 import org.nd4j.common.primitives.Pair;
 import org.nd4j.linalg.activations.BaseActivationFunction;

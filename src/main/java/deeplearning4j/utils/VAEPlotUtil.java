@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.utils;
+package deeplearning4j.utils;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -168,7 +168,7 @@ public class VAEPlotUtil {
         XYDataset dataset = createDataSet(features, labels);
 
         JFreeChart chart = ChartFactory.createScatterPlot(title,
-            "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+                "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
 
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.getRenderer().setBaseOutlineStroke(new BasicStroke(0));
@@ -190,7 +190,7 @@ public class VAEPlotUtil {
         plot.setRangeMinorGridlinesVisible(true);
 
         XYLineAndShapeRenderer renderer
-            = (XYLineAndShapeRenderer) plot.getRenderer();
+                = (XYLineAndShapeRenderer) plot.getRenderer();
         renderer.setSeriesOutlinePaint(0, Color.black);
         renderer.setUseOutlinePaint(true);
         NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();

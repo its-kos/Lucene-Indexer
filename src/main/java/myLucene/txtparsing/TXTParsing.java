@@ -1,16 +1,9 @@
-<<<<<<< HEAD
 package myLucene.txtparsing;
-=======
-<<<<<<<< HEAD:src/main/myLucene/txtparsing/TXTParsing.java
-package org.myLucene.txtparsing;
-========
-package main.java.myLucene.txtparsing;
->>>>>>>> f9ca8a0438de0104c61a6fd513191e7b316121f3:src/main/java/myLucene/txtparsing/TXTParsing.java
->>>>>>> f9ca8a0438de0104c61a6fd513191e7b316121f3
+
 
 import myLucene.utils.IO;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TXTParsing {

@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.modelling.alphagozero.dualresidual;
+package deeplearning4j.advanced.modelling.alphagozero.dualresidual;
 
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
 import org.deeplearning4j.nn.conf.ConvolutionMode;
@@ -57,9 +57,9 @@ class DL4JAlphaGoZeroBuilder {
         this.convolutionMode = mode;
 
         this.conf =  new NeuralNetConfiguration.Builder()
-            .updater(new Sgd())
-            .weightInit(WeightInit.LECUN_NORMAL)
-            .graphBuilder().setInputTypes(InputType.convolutional(19, 19, 11));
+                .updater(new Sgd())
+                .weightInit(WeightInit.LECUN_NORMAL)
+                .graphBuilder().setInputTypes(InputType.convolutional(19, 19, 11));
     }
 
     public DL4JAlphaGoZeroBuilder() {
@@ -81,13 +81,13 @@ class DL4JAlphaGoZeroBuilder {
      * conv2d -> batch norm -> ReLU
      */
     public String addConvBatchNormBlock(String blockName, String inName,int nIn,
-                              boolean useActivation) {
+                                        boolean useActivation) {
         String convName = "conv_" + blockName;
         String bnName = "batch_norm_" + blockName;
         String actName = "relu_" + blockName;
 
         conf.addLayer(convName, new ConvolutionLayer.Builder().kernelSize(kernelSize)
-        .stride(strides).convolutionMode(convolutionMode).nIn(nIn).nOut(256).build(), inName);
+                .stride(strides).convolutionMode(convolutionMode).nIn(nIn).nOut(256).build(), inName);
         conf.addLayer(bnName, new BatchNormalization.Builder().nOut(256).build(), convName);
 
         if (useActivation) {
@@ -108,9 +108,9 @@ class DL4JAlphaGoZeroBuilder {
         String actBlock = "relu_" + blockNumber;
 
         String firstBnOut =
-            addConvBatchNormBlock(firstBlock, inName, 256, true);
+                addConvBatchNormBlock(firstBlock, inName, 256, true);
         String secondBnOut =
-            addConvBatchNormBlock(secondBlock, firstOut, 256, false);
+                addConvBatchNormBlock(secondBlock, firstOut, 256, false);
         conf.addVertex(mergeBlock, new ElementWiseVertex(Op.Add), firstBnOut, secondBnOut);
         conf.addLayer(actBlock, new ActivationLayer.Builder().activation(Activation.RELU).build(), mergeBlock);
         return actBlock;
@@ -149,7 +149,7 @@ class DL4JAlphaGoZeroBuilder {
         String denseName = "policy_head_output_";
 
         conf.addLayer(convName, new ConvolutionLayer.Builder().kernelSize(kernelSize).stride(strides)
-        .convolutionMode(convolutionMode).nOut(2).nIn(256).build(), inName);
+                .convolutionMode(convolutionMode).nOut(2).nIn(256).build(), inName);
         conf.addLayer(bnName, new BatchNormalization.Builder().nOut(2).build(), convName);
         conf.addLayer(actName, new ActivationLayer.Builder().activation(Activation.RELU).build(), bnName);
         conf.addLayer(denseName, new OutputLayer.Builder().nIn(2 * 19 * 19).nOut(19 * 19 + 1).build(), actName);
@@ -172,7 +172,7 @@ class DL4JAlphaGoZeroBuilder {
         String outputName = "value_head_output_";
 
         conf.addLayer(convName, new ConvolutionLayer.Builder().kernelSize(kernelSize).stride(strides)
-        .convolutionMode(convolutionMode).nOut(1).nIn(256).build(), inName);
+                .convolutionMode(convolutionMode).nOut(1).nIn(256).build(), inName);
         conf.addLayer(bnName, new BatchNormalization.Builder().nOut(1).build(), convName);
         conf.addLayer(actName, new ActivationLayer.Builder().activation(Activation.RELU).build(), bnName);
         conf.addLayer(denseName, new DenseLayer.Builder().nIn(19 * 19).nOut(256).build(), actName);

@@ -17,10 +17,10 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.quickstart.features.userinterface;
+package deeplearning4j.quickstart.features.userinterface;
 
 import org.deeplearning4j.core.storage.StatsStorage;
-import org.deeplearning4j.examples.quickstart.features.userinterface.util.UIExampleUtils;
+import deeplearning4j.quickstart.features.userinterface.util.UIExampleUtils;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.ui.api.UIServer;
 import org.deeplearning4j.ui.model.stats.StatsListener;

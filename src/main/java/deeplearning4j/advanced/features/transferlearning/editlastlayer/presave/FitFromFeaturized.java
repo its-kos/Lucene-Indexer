@@ -17,9 +17,9 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.features.transferlearning.editlastlayer.presave;
+package deeplearning4j.advanced.features.transferlearning.editlastlayer.presave;
 
-import org.deeplearning4j.examples.advanced.features.transferlearning.iterators.FlowerDataSetIteratorFeaturized;
+import deeplearning4j.advanced.features.transferlearning.iterators.FlowerDataSetIteratorFeaturized;
 import org.deeplearning4j.nn.conf.distribution.NormalDistribution;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.graph.ComputationGraph;

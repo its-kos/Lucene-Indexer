@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.modelling.sequenceanomalydetection;
+package deeplearning4j.advanced.modelling.sequenceanomalydetection;
 
 
 import org.datavec.api.writable.Text;

@@ -17,7 +17,8 @@
  * SPDX-License-Identifier: Apache-2.0
  ******************************************************************************/
 
-package org.deeplearning4j.examples.advanced.features.customizingdl4j.layers.layer;
+package deeplearning4j.advanced.features.customizingdl4j.layers.layer;
+
 
 import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.api.ParamInitializer;
@@ -73,7 +74,7 @@ public class CustomLayer extends FeedForwardLayer {
         // (i.e., a CustomLayerImpl instance)
         //For the most part, it's the same for each type of layer
 
-        CustomLayerImplementation myCustomLayer = new CustomLayerImplementation(conf, networkDType);
+        deeplearning4j.advanced.features.customizingdl4j.layers.layer.CustomLayerImplementation myCustomLayer = new deeplearning4j.advanced.features.customizingdl4j.layers.layer.CustomLayerImplementation(conf, networkDType);
         myCustomLayer.setListeners(iterationListeners);             //Set the iteration listeners, if any
         myCustomLayer.setIndex(layerIndex);                         //Integer index of the layer
 
@@ -128,10 +129,10 @@ public class CustomLayer extends FeedForwardLayer {
         trainSizeVariable += outputType.arrayElementsPerExample();
 
         return new LayerMemoryReport.Builder(layerName, CustomLayer.class, inputType, outputType)
-            .standardMemory(numParams, updaterStateSize)
-            .workingMemory(0, 0, trainSizeFixed, trainSizeVariable)     //No additional memory (beyond activations) for inference
-            .cacheMemory(MemoryReport.CACHE_MODE_ALL_ZEROS, MemoryReport.CACHE_MODE_ALL_ZEROS) //No caching in DenseLayer
-            .build();
+                .standardMemory(numParams, updaterStateSize)
+                .workingMemory(0, 0, trainSizeFixed, trainSizeVariable)     //No additional memory (beyond activations) for inference
+                .cacheMemory(MemoryReport.CACHE_MODE_ALL_ZEROS, MemoryReport.CACHE_MODE_ALL_ZEROS) //No caching in DenseLayer
+                .build();
     }
 
 

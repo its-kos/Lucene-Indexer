@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 package myLucene.app;
-=======
-package main.java.myLucene.app;
->>>>>>> f9ca8a0438de0104c61a6fd513191e7b316121f3
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
@@ -18,6 +14,10 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.store.FSDirectory;
+import org.deeplearning4j.models.embeddings.learning.impl.elements.SkipGram;
+import org.deeplearning4j.models.word2vec.Word2Vec;
+import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
+import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
 
 
 import java.io.*;
@@ -36,11 +36,12 @@ public class IndexSearcher {
             IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get(indexLocation)));
             org.apache.lucene.search.IndexSearcher indexSearcher = new org.apache.lucene.search.IndexSearcher(indexReader);
 
+
             Analyzer analyzer = new EnglishAnalyzer();
             MoreLikeThis mlt = new MoreLikeThis(indexReader);
-//            Sets the frequency below which terms will be ignored in the source doc.
+//          Sets the frequency below which terms will be ignored in the source doc.
             mlt.setMinTermFreq(1);
-//            Sets the frequency at which words will be ignored which do not occur in at least this many docs.
+//          Sets the frequency at which words will be ignored which do not occur in at least this many docs.
             mlt.setMinDocFreq(1);
             mlt.setFieldNames(new String[]{"docid", "contents"});
             mlt.setAnalyzer(analyzer);

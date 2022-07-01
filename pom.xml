@@ -202,6 +202,11 @@ information regarding copyright ownership.
             <artifactId>lucene-queryparser</artifactId>
             <version>7.7.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.nd4j</groupId>
+            <artifactId>nd4j-common</artifactId>
+            <version>1.0.0-beta7</version>
+        </dependency>
 
     </dependencies>
     <!-- Maven Enforcer: Ensures user has an up to date version of Maven before building -->
