@@ -187,26 +187,7 @@ information regarding copyright ownership.
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>7.7.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-analyzers-common</artifactId>
-            <version>7.7.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queryparser</artifactId>
-            <version>7.7.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.nd4j</groupId>
-            <artifactId>nd4j-common</artifactId>
-            <version>1.0.0-beta7</version>
-        </dependency>
+
 
     </dependencies>
     <!-- Maven Enforcer: Ensures user has an up to date version of Maven before building -->
@@ -300,7 +281,6 @@ information regarding copyright ownership.
                 <version>${maven-shade-plugin.version}</version>
                 <configuration>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
-                    <shadedClassifierName>${shadedClassifier}</shadedClassifierName>
                     <createDependencyReducedPom>true</createDependencyReducedPom>
                     <filters>
                         <filter>

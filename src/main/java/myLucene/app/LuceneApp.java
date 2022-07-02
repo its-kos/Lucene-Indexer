@@ -2,9 +2,12 @@ package myLucene.app;
 
 import myLucene.utils.IO;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
+import org.nd4j.linalg.api.ndarray.INDArray;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -28,16 +31,14 @@ public class LuceneApp {
 
             for (int k:Ks){
                 for (String query:queries) {
-                    Collection<String> strings = paragraphVectors.nearestLabels(query, k);
-                    for (String s : strings) {
-                        //int docId = Integer.parseInt(s.substring(4));
-                        //Document document = reader.document(docId);
-                        //System.out.println(document.get("content"));
-                    }
-
                     String queryId = query.trim().split("\n")[0].trim();
                     String text = query.trim().split("\n")[1].trim();
-                    IndexSearcher.search(text, k, queryId);
+
+                    /* ΦΑΣΗ 3 */
+                    //IndexSearcher.search(text, k, queryId);
+
+                    /* ΦΑΣΗ 4 */
+                    IndexSearcher.searchND4J(text, queryId, k, paragraphVectors);
                 }
             }
             System.out.println("Written in txt files");

@@ -2,6 +2,7 @@ package myLucene.app;
 
 // tested for lucene 7.7.3 and jdk18
 
+import myLucene.txtparsing.FieldValuesLabelAwareIterator;
 import myLucene.txtparsing.MyDoc;
 import myLucene.txtparsing.TXTParsing;
 import myLucene.utils.IO;
@@ -11,6 +12,8 @@ import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
@@ -27,6 +30,9 @@ import org.deeplearning4j.models.sequencevectors.sequence.Sequence;
 import org.deeplearning4j.models.word2vec.VocabWord;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.deeplearning4j.text.documentiterator.DocumentIterator;
+import org.deeplearning4j.text.documentiterator.LabelAwareIterator;
+import org.deeplearning4j.text.documentiterator.LabelledDocument;
+import org.deeplearning4j.text.documentiterator.SimpleLabelAwareIterator;
 import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
 import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
 import org.deeplearning4j.text.sentenceiterator.SentencePreProcessor;
@@ -37,6 +43,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -47,14 +54,6 @@ public class Indexer {
 
         // Define were to find the texts
         String txtfile =  ".\\IR2022\\documents.txt";
-        String txt_file = IO.ReadEntireFileIntoAString(txtfile);
-        String[] tmp = txt_file.split("///");
-        String[] docum = new String[tmp.length];
-
-        for (int i = 0; i < tmp.length; i++){
-            docum[i] = tmp[i].split("\n")[1];
-        }
-
         // Define were to store the index
         String indexLocation = ("index");
         Date start = new Date();
@@ -78,61 +77,26 @@ public class Indexer {
             // Create the IndexWriter with the configuration as above
             IndexWriter indexWriter = new IndexWriter(dir, iwc);
 
-            ParagraphVectors paragraphVectors = new ParagraphVectors.Builder()
-                    .iterate(new SentenceIterator() {
-                        @Override
-                        public String nextSentence() {
-                            String item = docum[it];
-                            it++;
-                            return item;
-                        }
-
-                        @Override
-                        public boolean hasNext() {
-                            if (it == docum.length - 1){
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        }
-
-                        @Override
-                        public void reset() {
-                            it = 0;
-                        }
-
-                        @Override
-                        public void finish() {
-                            System.out.println("Done iterating over docs...");
-                        }
-
-                        @Override
-                        public SentencePreProcessor getPreProcessor() {
-                            return null;
-                        }
-
-                        @Override
-                        public void setPreProcessor(SentencePreProcessor sentencePreProcessor) {}
-                    })
-                    .layerSize(50)
-                    .minWordFrequency(7)
-                    .sequenceLearningAlgorithm(new DM<>())
-                    .tokenizerFactory(new DefaultTokenizerFactory())
-                    .build();
-
             // Parse txt document using TXT parser and index it
             List<MyDoc> docs = TXTParsing.parse(txtfile);
             for (MyDoc doc : docs){
                 indexDoc(indexWriter, doc);
             }
-            
+
+            IndexReader reader = DirectoryReader.open(indexWriter);
+            FieldValuesLabelAwareIterator iterator = new FieldValuesLabelAwareIterator("content", reader);
+            ParagraphVectors paragraphVectors = new ParagraphVectors.Builder()
+                    .iterate(iterator)
+                    .tokenizerFactory(new DefaultTokenizerFactory())
+                    .build();
+            paragraphVectors.fit();
+
             indexWriter.close();
-            
+
             Date end = new Date();
             System.out.println("Index created...");
             System.out.println(end.getTime() - start.getTime() + " total milliseconds");
 
-            paragraphVectors.fit();
             System.out.println(paragraphVectors);
             return paragraphVectors;
 

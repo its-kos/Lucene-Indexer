@@ -6,8 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="dl4j-examples" />
-        <module name="LuceneApp" />
+        <module name="Lucene" />
       </profile>
     </annotationProcessing>
   </component>
