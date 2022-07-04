@@ -63,8 +63,6 @@ public class Indexer {
                 indexDoc(indexWriter, doc);
             }
 
-//            IndexReader reader = DirectoryReader.open(indexWriter);
-//            FieldValuesLabelAwareIterator iterator = new FieldValuesLabelAwareIterator("content", reader);
 
             File file = new File(txtfile);
             SentenceIterator iterator = new BasicLineIterator(file);
@@ -74,6 +72,7 @@ public class Indexer {
 
             LabelsSource source = new LabelsSource("doc_");
 
+//            training model
             ParagraphVectors paragraphVectors = new ParagraphVectors.Builder()
                     .iterate(iterator)
                     .labelsSource(source)

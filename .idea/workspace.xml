@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad1b3eb0-760a-4402-b602-af510c60f573" name="Changes" comment="" />
+    <list default="true" id="ad1b3eb0-760a-4402-b602-af510c60f573" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IR2022/Results/results-k20.txt" beforeDir="false" afterPath="$PROJECT_DIR$/IR2022/Results/results-k20.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IR2022/Results/results-k30.txt" beforeDir="false" afterPath="$PROJECT_DIR$/IR2022/Results/results-k30.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IR2022/Results/results-k50.txt" beforeDir="false" afterPath="$PROJECT_DIR$/IR2022/Results/results-k50.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index/_y.cfe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index/_y.cfs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index/_y.si" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index/segments_r" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/myLucene/app/IndexSearcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/myLucene/app/IndexSearcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/myLucene/app/Indexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/myLucene/app/Indexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/myLucene/app/IndexSearcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/myLucene/app/IndexSearcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/myLucene/app/Indexer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/myLucene/app/Indexer.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,10 +31,14 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2BNtUGg6SMlLxRewyJ3cHT23YZ7" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -29,6 +47,8 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/Users/kkons/Desktop/Lucene/src/main/java/myLucene/app&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
@@ -45,21 +65,28 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="LuceneApp" type="Application" factoryName="Application">
+    <configuration name="LuceneApp" type="Application" factoryName="Application" temporary="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="myLucene.app.LuceneApp" />
-      <module name="Lucene" />
-      <shortenClasspath name="CLASSPATH_FILE" />
+      <module name="Lucene-Indexer" />
+      <shortenClasspath name="MANIFEST" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <module name="Lucene" />
-      <shortenClasspath name="NONE" />
+      <shortenClasspath name="ARGS_FILE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LuceneApp" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -69,8 +96,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1656758385158</updated>
+      <workItem from="1656947538474" duration="4397000" />
+      <workItem from="1656953554470" duration="1305000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -93,6 +93,7 @@ public class IndexSearcher {
             e.printStackTrace();
         }
     }
+//    search function with ND4J
     public static void searchND4J(String queryText, String queryId, int k, ParagraphVectors paragraphVectors) throws ParseException, IOException {
         IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get(indexLocation)));
         org.apache.lucene.search.IndexSearcher indexSearcher = new org.apache.lucene.search.IndexSearcher(indexReader);
@@ -100,6 +101,7 @@ public class IndexSearcher {
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         String format = String.format("%02d", Integer.parseInt(queryId.substring(1)));
 
+//        creating embeddings
         INDArray qPV = paragraphVectors.getLookupTable().vector(queryText);
         if (qPV == null) {
             qPV = paragraphVectors.inferVector(queryText);
@@ -123,11 +125,13 @@ public class IndexSearcher {
             scores.add((float)Transforms.cosineSim(qPV, docPV));
         }
 
+//        descending order for scores and documents
         scoreBbubbleSortDescending(scores, documents, scoreDocs);
         documents = new ArrayList<Document>(documents.subList(0, k));
         scoreDocs = new ArrayList<ScoreDoc>(scoreDocs.subList(0, k));
         docBbubbleSortDescending(documents, scoreDocs);
 
+//        writing to the file
         for (int i = 0; i < k; i++){
             bufferedWriter.write("Q" + format + " Q0 "+ documents.get(i).get("docid") + " 0 " + scoreDocs.get(i).score + " myRun" + "\n");
         }
