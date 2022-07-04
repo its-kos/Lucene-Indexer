@@ -38,7 +38,7 @@ public class FieldValuesLabelAwareIterator implements LabelAwareIterator {
             Document document = reader.document(currentId, Collections.singleton(field));
             LabelledDocument labelledDocument = new LabelledDocument();
             labelledDocument.addLabel("doc_" + currentId);
-            labelledDocument.setContent(document.getField(field).stringValue());
+            labelledDocument.setContent(String.valueOf(document.getField(field)));
             return labelledDocument;
         } catch (IOException e){
             throw new RuntimeException(e);

@@ -2,18 +2,11 @@ package myLucene.app;
 
 // tested for lucene 7.7.3 and jdk18
 
-import myLucene.txtparsing.FieldValuesLabelAwareIterator;
 import myLucene.txtparsing.MyDoc;
 import myLucene.txtparsing.TXTParsing;
-import myLucene.utils.IO;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.core.KeywordAnalyzer;
-import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
@@ -21,39 +14,26 @@ import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.deeplearning4j.models.embeddings.learning.impl.elements.CBOW;
-import org.deeplearning4j.models.embeddings.learning.impl.elements.SkipGram;
-import org.deeplearning4j.models.embeddings.learning.impl.sequence.DM;
 import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
-import org.deeplearning4j.models.sequencevectors.interfaces.SequenceIterator;
-import org.deeplearning4j.models.sequencevectors.sequence.Sequence;
-import org.deeplearning4j.models.word2vec.VocabWord;
-import org.deeplearning4j.models.word2vec.Word2Vec;
-import org.deeplearning4j.text.documentiterator.DocumentIterator;
-import org.deeplearning4j.text.documentiterator.LabelAwareIterator;
-import org.deeplearning4j.text.documentiterator.LabelledDocument;
-import org.deeplearning4j.text.documentiterator.SimpleLabelAwareIterator;
+import org.deeplearning4j.text.documentiterator.*;
 import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
 import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
-import org.deeplearning4j.text.sentenceiterator.SentencePreProcessor;
+import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
+import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
+import org.nd4j.common.io.ClassPathResource;
 
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Indexer {
     static int it = 0;
     public static ParagraphVectors index() throws Exception{
 
         // Define were to find the texts
-        String txtfile =  ".\\IR2022\\documents.txt";
+        String txtfile = "IR2022/documents.txt";
         // Define were to store the index
         String indexLocation = ("index");
         Date start = new Date();
@@ -83,21 +63,30 @@ public class Indexer {
                 indexDoc(indexWriter, doc);
             }
 
-            IndexReader reader = DirectoryReader.open(indexWriter);
-            FieldValuesLabelAwareIterator iterator = new FieldValuesLabelAwareIterator("content", reader);
+//            IndexReader reader = DirectoryReader.open(indexWriter);
+//            FieldValuesLabelAwareIterator iterator = new FieldValuesLabelAwareIterator("content", reader);
+
+            File file = new File(txtfile);
+            SentenceIterator iterator = new BasicLineIterator(file);
+
+            TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
+            tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
+
+            LabelsSource source = new LabelsSource("doc_");
+
             ParagraphVectors paragraphVectors = new ParagraphVectors.Builder()
                     .iterate(iterator)
-                    .tokenizerFactory(new DefaultTokenizerFactory())
+                    .labelsSource(source)
+                    .tokenizerFactory(tokenizerFactory)
                     .build();
             paragraphVectors.fit();
 
             indexWriter.close();
 
             Date end = new Date();
-            System.out.println("Index created...");
+            System.out.println("Model Trained...");
             System.out.println(end.getTime() - start.getTime() + " total milliseconds");
 
-            System.out.println(paragraphVectors);
             return paragraphVectors;
 
         } catch (IOException e) {

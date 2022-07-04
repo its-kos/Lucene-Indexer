@@ -1,5 +1,6 @@
 package myLucene.app;
 
+import myLucene.utils.ParagraphVectorsSimilarity;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
@@ -14,10 +15,12 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.similarities.ClassicSimilarity;
+import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.FSDirectory;
 import org.deeplearning4j.models.embeddings.learning.impl.elements.SkipGram;
 import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
 import org.deeplearning4j.models.word2vec.Word2Vec;
+import org.deeplearning4j.text.documentiterator.LabelledDocument;
 import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
 import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -28,6 +31,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class IndexSearcher {
@@ -59,7 +63,7 @@ public class IndexSearcher {
 
             TopDocs results = indexSearcher.search(res, k);
 
-            FileWriter fileWriter = new FileWriter(".\\IR2022\\Results\\results-k" + k + ".txt", true);
+            FileWriter fileWriter = new FileWriter("IR2022\\Results\\results-k" + k + ".txt", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             ArrayList includedDocs = new ArrayList();
 
@@ -92,7 +96,7 @@ public class IndexSearcher {
     public static void searchND4J(String queryText, String queryId, int k, ParagraphVectors paragraphVectors) throws ParseException, IOException {
         IndexReader indexReader = DirectoryReader.open(FSDirectory.open(Paths.get(indexLocation)));
         org.apache.lucene.search.IndexSearcher indexSearcher = new org.apache.lucene.search.IndexSearcher(indexReader);
-        FileWriter fileWriter = new FileWriter(".\\IR2022\\Results\\results-k" + k + ".txt", true);
+        FileWriter fileWriter = new FileWriter("IR2022/Results/results-k" + k + ".txt", true);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         String format = String.format("%02d", Integer.parseInt(queryId.substring(1)));
 
@@ -104,19 +108,73 @@ public class IndexSearcher {
         indexSearcher.setSimilarity(new ClassicSimilarity());
         QueryParser parser = new QueryParser(field, new WhitespaceAnalyzer());
         Query query = parser.parse(QueryParser.escape(String.valueOf(queryText)));
-        TopDocs hits = indexSearcher.search(query, k + 10);
-        ArrayList<Double> scores = new ArrayList<>();
+        TopDocs hits = indexSearcher.search(query, 18317);
+
+        ArrayList<Float> scores = new ArrayList<Float>();
+        ArrayList<Document> documents = new ArrayList<Document>();
+        ArrayList<ScoreDoc> scoreDocs = new ArrayList<ScoreDoc>();
 
         for (int i = 0; i < hits.scoreDocs.length; i++){
             ScoreDoc scoreDoc = hits.scoreDocs[i];
             Document doc = indexSearcher.doc(scoreDoc.doc);
-            String label = "doc_" + doc;
-            INDArray docPV = paragraphVectors.getLookupTable().vector(label);
-            scores.add(Transforms.cosineSim(qPV, docPV));
+            INDArray docPV = paragraphVectors.getLookupTable().vector("doc_" + scoreDoc.doc);
+            scoreDocs.add(scoreDoc);
+            documents.add(doc);
+            scores.add((float)Transforms.cosineSim(qPV, docPV));
         }
-        Collections.sort(scores);
+
+        scoreBbubbleSortDescending(scores, documents, scoreDocs);
+        documents = new ArrayList<Document>(documents.subList(0, k));
+        scoreDocs = new ArrayList<ScoreDoc>(scoreDocs.subList(0, k));
+        docBbubbleSortDescending(documents, scoreDocs);
+
         for (int i = 0; i < k; i++){
-            bufferedWriter.write("Q" + format + " Q0 "+ "3423" + " 0 " + scores.get(i) + " myRun" + "\n");
+            bufferedWriter.write("Q" + format + " Q0 "+ documents.get(i).get("docid") + " 0 " + scoreDocs.get(i).score + " myRun" + "\n");
+        }
+        bufferedWriter.close();
+    }
+
+    public static void scoreBbubbleSortDescending(ArrayList<Float> scores, ArrayList<Document> documents, ArrayList<ScoreDoc> scoredocs) {
+        boolean sorted = false;
+        float temp;
+        Document tempD;
+        ScoreDoc tempS;
+        while(!sorted) {
+            sorted = true;
+            for (int i = 0; i < scores.size() - 1; i++) {
+                if (scores.get(i) < scores.get(i + 1)) {
+                    temp = scores.get(i);
+                    tempD = documents.get(i);
+                    tempS = scoredocs.get(i);
+                    scores.set(i, scores.get(i + 1));
+                    documents.set(i, documents.get(i + 1));
+                    scoredocs.set(i, scoredocs.get(i + 1));
+                    scores.set(i + 1, temp);
+                    documents.set(i + 1, tempD);
+                    scoredocs.set(i + 1, tempS);
+                    sorted = false;
+                }
+            }
+        }
+    }
+
+    public static void docBbubbleSortDescending(ArrayList<Document> documents, ArrayList<ScoreDoc> scoredocs) {
+        boolean sorted = false;
+        Document tempD;
+        ScoreDoc tempS;
+        while(!sorted) {
+            sorted = true;
+            for (int i = 0; i < scoredocs.size() - 1; i++) {
+                if (scoredocs.get(i).score < scoredocs.get(i + 1).score) {
+                    tempS = scoredocs.get(i);
+                    tempD = documents.get(i);
+                    scoredocs.set(i, scoredocs.get(i + 1));
+                    documents.set(i, documents.get(i + 1));
+                    scoredocs.set(i + 1, tempS);
+                    documents.set(i + 1, tempD);
+                    sorted = false;
+                }
+            }
         }
     }
 }
